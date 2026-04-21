@@ -1,27 +1,51 @@
+use std::time::Duration;
+
 use anyhow::{Context, Result};
 use ksni::TrayMethods;
 use ksni::menu::{CheckmarkItem, MenuItem, StandardItem, SubMenu};
+use log::warn;
 
 use crate::config::{Config, SoundProfile};
-use crate::engine::{self, EngineController};
+use crate::engine::{self, EngineController, RunningEngine};
 
 pub fn run(config: Config) -> Result<()> {
-    let engine = engine::start_background(&config)?;
-    let tray = KeyboardTray::new(config, engine.controller().clone());
-
     let runtime = tokio::runtime::Builder::new_current_thread()
         .enable_all()
         .build()
         .context("failed to build tokio runtime for tray service")?;
 
     runtime.block_on(async move {
-        let _handle = tray.spawn().await.context("failed to start ksni tray")?;
-        std::future::pending::<()>().await;
-        #[allow(unreachable_code)]
-        Ok::<(), anyhow::Error>(())
+        run_with_retries(config).await
     })?;
 
     Ok(())
+}
+
+async fn run_with_retries(config: Config) -> Result<()> {
+    const RETRY_DELAY: Duration = Duration::from_secs(2);
+
+    loop {
+        match start_services(&config).await {
+            Ok((_engine, _tray_handle)) => {
+                std::future::pending::<()>().await;
+                #[allow(unreachable_code)]
+                return Ok(());
+            }
+            Err(error) => {
+                warn!("startup failed: {error:#}");
+                tokio::time::sleep(RETRY_DELAY).await;
+            }
+        }
+    }
+}
+
+async fn start_services(
+    config: &Config,
+) -> Result<(RunningEngine, ksni::Handle<KeyboardTray>)> {
+    let engine = engine::start_background(config)?;
+    let tray = KeyboardTray::new(config.clone(), engine.controller().clone());
+    let handle = tray.spawn().await.context("failed to start ksni tray")?;
+    Ok((engine, handle))
 }
 
 #[derive(Clone, Debug)]

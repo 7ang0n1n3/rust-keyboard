@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./rust-keyboard-logo.png" alt="rust-keyboard logo" width="180">
+  <img src="./rust-keyboard-logo.png" alt="rust-keyboard logo" width="380">
 </p>
 
 # rust-keyboard
