@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format follows Keep a Changelog, and this project uses semantic versioning.
 
+## [1.0.1] - 2026-04-21
+
+### Changed
+
+- bumped crate version to `1.0.1`
+- refreshed `README.md` release metadata and command descriptions
+
+### Notes
+
+- maintenance release for documentation and packaging consistency
+
 ## [1.0.0] - 2026-04-21
 
 ### Added
