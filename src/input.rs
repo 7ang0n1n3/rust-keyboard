@@ -15,7 +15,6 @@ pub struct KeyboardDevice {
 
 #[derive(Clone, Debug)]
 pub struct KeyPress {
-    pub device_name: String,
     pub key_code: Key,
 }
 
@@ -115,10 +114,7 @@ fn read_device_loop(keyboard: KeyboardDevice, tx: Sender<KeyPress>) -> Result<()
         {
             if let InputEventKind::Key(key_code) = event.kind() {
                 if event.value() == 1 {
-                    let _ = tx.send(KeyPress {
-                        device_name: keyboard.name.clone(),
-                        key_code,
-                    });
+                    let _ = tx.send(KeyPress { key_code });
                 }
             }
         }

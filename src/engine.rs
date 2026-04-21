@@ -7,7 +7,7 @@ use std::thread::{self, JoinHandle};
 use std::time::Duration;
 
 use anyhow::{Result, bail};
-use log::{info, warn};
+use log::warn;
 
 use crate::audio::AudioEngine;
 use crate::config::{Config, SoundProfile};
@@ -81,14 +81,6 @@ fn start(
         bail!("no readable keyboard devices found; run `rust-keyboard doctor` for guidance");
     }
 
-    for keyboard in manager.devices() {
-        info!(
-            "listening on {} ({})",
-            keyboard.name,
-            keyboard.path.display()
-        );
-    }
-
     let (tx, rx) = mpsc::channel();
     manager.spawn(tx);
 
@@ -113,7 +105,6 @@ fn start(
                     let runtime = *thread_settings
                         .lock()
                         .expect("runtime settings mutex poisoned");
-                    info!("key {:?} from {}", event.key_code, event.device_name);
                     if let Some(audio) = &audio {
                         audio.play_click(
                             runtime.profile,

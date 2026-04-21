@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format follows Keep a Changelog, and this project uses semantic versioning.
 
+## [1.0.3] - 2026-04-22
+
+### Changed
+
+- disabled default runtime logger initialization so the app stays silent unless logging is reintroduced explicitly
+- removed per-key input logging to avoid recording typed key activity in logs
+- refreshed `README.md` release metadata for `1.0.3`
+
 ## [1.0.2] - 2026-04-22
 
 ### Added

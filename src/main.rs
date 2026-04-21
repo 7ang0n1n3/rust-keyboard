@@ -14,8 +14,6 @@ use crate::cli::{Cli, Command};
 use crate::config::Config;
 
 fn main() -> Result<()> {
-    env_logger::init();
-
     let cli = Cli::parse();
     let config = Config::load_or_default()?;
 

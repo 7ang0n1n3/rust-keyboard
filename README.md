@@ -6,7 +6,7 @@
 
 `rust-keyboard` is an Arch Linux keyboard sound utility built in Rust. It runs as a tray-first desktop app, listens to Linux input events through `evdev`, and plays synthesized key sounds with live profile and volume control.
 
-Version: `1.0.2`
+Version: `1.0.3`
 
 ## Features
 
@@ -16,6 +16,7 @@ Version: `1.0.2`
 - live profile and volume changes from the tray menu
 - persistent config in `~/.config/rust-keyboard/config.toml`
 - diagnostic commands for input-device discovery and config inspection
+- default runtime logging is disabled
 
 ## Platform Notes
 
