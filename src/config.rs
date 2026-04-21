@@ -34,6 +34,7 @@ pub enum SoundProfile {
     Apple,
     Android,
     Blue,
+    BlueAlps,
     Brown,
     Red,
 }
@@ -99,6 +100,7 @@ impl SoundProfile {
             Self::Apple => "Apple",
             Self::Android => "Android",
             Self::Blue => "Blue",
+            Self::BlueAlps => "Blue Alps",
             Self::Brown => "Brown",
             Self::Red => "Red",
         }

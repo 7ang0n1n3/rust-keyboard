@@ -111,6 +111,7 @@ impl ksni::Tray for KeyboardTray {
                     profile_item("Apple laptop", SoundProfile::Apple, current_profile),
                     profile_item("Android tap", SoundProfile::Android, current_profile),
                     profile_item("Blue switch", SoundProfile::Blue, current_profile),
+                    profile_item("Blue Alps", SoundProfile::BlueAlps, current_profile),
                     profile_item("Brown switch", SoundProfile::Brown, current_profile),
                     profile_item("Red switch", SoundProfile::Red, current_profile),
                 ],

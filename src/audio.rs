@@ -38,6 +38,7 @@ fn click_waveform(profile: SoundProfile, volume: f32, velocity: f32, sample_rate
         SoundProfile::Apple => (1_850.0, 3_450.0, 13.0, 0.05, 0.88, 0.18),
         SoundProfile::Android => (2_050.0, 4_150.0, 11.0, 0.08, 0.66, 0.10),
         SoundProfile::Blue => (2_400.0, 5_200.0, 28.0, 0.48, 0.52, 0.06),
+        SoundProfile::BlueAlps => (1_680.0, 4_800.0, 36.0, 0.34, 0.58, 0.11),
         SoundProfile::Brown => (1_750.0, 3_100.0, 22.0, 0.24, 0.76, 0.08),
         SoundProfile::Red => (1_250.0, 2_200.0, 18.0, 0.10, 0.82, 0.04),
     };
@@ -54,6 +55,7 @@ fn click_waveform(profile: SoundProfile, volume: f32, velocity: f32, sample_rate
         let env = match profile {
             SoundProfile::Apple => (-13.5 * progress).exp(),
             SoundProfile::Android => (-16.0 * progress).exp(),
+            SoundProfile::BlueAlps => (-7.2 * progress).exp(),
             _ => (-8.5 * progress).exp(),
         };
         let sweep = 1.0 - (progress * pitch_sweep);
@@ -62,6 +64,7 @@ fn click_waveform(profile: SoundProfile, volume: f32, velocity: f32, sample_rate
         let attack = match profile {
             SoundProfile::Apple => (1.0 - (-32.0 * progress).exp()).clamp(0.0, 1.0),
             SoundProfile::Android => (1.0 - (-48.0 * progress).exp()).clamp(0.0, 1.0),
+            SoundProfile::BlueAlps => (1.0 - (-28.0 * progress).exp()).clamp(0.0, 1.0),
             _ => 1.0,
         };
         let noise = hash_noise(i as u32) * noise_mix;
@@ -72,6 +75,13 @@ fn click_waveform(profile: SoundProfile, volume: f32, velocity: f32, sample_rate
             SoundProfile::Android => {
                 let transient = (2.0 * PI * 6_100.0 * t).sin() * 0.035;
                 transient + hash_noise(i as u32 ^ 0x0001_0bad) * 0.02 * (1.0 - progress).powf(3.0)
+            }
+            SoundProfile::BlueAlps => {
+                let click_bar = (2.0 * PI * 3_200.0 * t).sin() * 0.06 * (1.0 - progress).powf(1.4);
+                let leaf_ping = (2.0 * PI * 6_400.0 * t).sin() * 0.028 * (1.0 - progress).powf(2.1);
+                click_bar
+                    + leaf_ping
+                    + hash_noise(i as u32 ^ 0x00a1_0a15) * 0.025 * (1.0 - progress).powf(1.8)
             }
             _ => 0.0,
         };

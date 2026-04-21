@@ -6,13 +6,13 @@
 
 `rust-keyboard` is an Arch Linux keyboard sound utility built in Rust. It runs as a tray-first desktop app, listens to Linux input events through `evdev`, and plays synthesized key sounds with live profile and volume control.
 
-Version: `1.0.1`
+Version: `1.0.2`
 
 ## Features
 
 - tray-first app flow: `cargo run` starts the app directly
 - Wayland-friendly input capture through `/dev/input/event*`
-- synthesized sound profiles: `apple`, `android`, `blue`, `brown`, `red`
+- synthesized sound profiles: `apple`, `android`, `blue`, `blue_alps`, `brown`, `red`
 - live profile and volume changes from the tray menu
 - persistent config in `~/.config/rust-keyboard/config.toml`
 - diagnostic commands for input-device discovery and config inspection
@@ -101,6 +101,7 @@ device_filters = ["keychron", "zsa"]
 - `apple`: softer laptop-style click
 - `android`: short touchscreen-style tap
 - `blue`: louder clicky mechanical sound
+- `blue_alps`: sharper vintage click with a longer resonant tail
 - `brown`: moderate tactile mechanical sound
 - `red`: softer linear mechanical sound
 

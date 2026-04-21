@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format follows Keep a Changelog, and this project uses semantic versioning.
 
+## [1.0.2] - 2026-04-22
+
+### Added
+
+- added `blue_alps` sound profile for a sharper vintage click character
+
 ## [1.0.1] - 2026-04-21
 
 ### Changed
